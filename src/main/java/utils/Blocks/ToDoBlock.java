@@ -14,6 +14,7 @@ public class ToDoBlock extends BaseBlock {
     private static final By COMPLETED_TAB = new By.ByXPath("//a[contains(@href, '#/completed')]");
     private static final By TODO_LIST_CHECKBOX = new By.ByXPath("//ul[contains(@class, \"todo-list\")]/li/div/input");
     private static final By TODO_LIST_ELEMENT = new By.ByXPath("//ul[contains(@class, \"todo-list\")]/li");
+    private static final By ALL_TODO_CHECKBOX = new By.ByXPath("//label[contains(@for, \"toggle-all\")]");
 
     public ToDoBlock(ChromeDriver driver) {
        this.driver = driver;
@@ -21,6 +22,11 @@ public class ToDoBlock extends BaseBlock {
 
     public ToDoBlock click() {
         driver.findElement(INPUT).click();
+        return this;
+    }
+
+    public ToDoBlock selectAllTodo() {
+        driver.findElement(ALL_TODO_CHECKBOX).click();
         return this;
     }
 

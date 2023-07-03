@@ -1,6 +1,5 @@
 package utils;
 
-import org.example.ConfProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utils.Blocks.ToDoBlock;
 

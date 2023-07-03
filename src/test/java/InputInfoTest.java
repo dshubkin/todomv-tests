@@ -1,8 +1,11 @@
 import org.example.ConfProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.Blocks.ToDoBlock;
 import utils.MainPage;
+import utils.TodoRow;
 
 import java.util.concurrent.TimeUnit;
 
@@ -11,18 +14,24 @@ import static org.testng.Assert.assertTrue;
 
 public class InputInfoTest {
 
+    private MainPage mainPage;
+    private ChromeDriver driver;
     private static final String infoText1 = "kek";
     private static final String infoText2 = "kek2";
 
-    @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
-    public void checkSuccessAddingInfo() throws Exception {
+    @BeforeMethod(description = "сетап до теста")
+    public void setUp() {
         System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
-        ChromeDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("mainpage"));
 
-        MainPage mainPage = new MainPage();
+        mainPage = new MainPage();
+    }
+
+    @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
+    public void checkSuccessAddingInfo() throws Exception {
         ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
                 .click()
                 .addTodo(infoText1);
@@ -37,19 +46,10 @@ public class InputInfoTest {
         toDoBlock.clickOnCompletedTodoTab();
         assertTrue(toDoBlock.isTabSelected("completed"), "Вкладка 'completed' не выбрана");
         assertEquals(toDoBlock.getTodoCount(), 0, "Колличество завершенных заметок > 0 !");
-
-        driver.quit();
     }
 
     @Test(description = "Проверяем, что добавив две заметки, счетчик заметок покажет текущее колличество")
     public void checkTodoCounter() {
-        System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
-        ChromeDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("mainpage"));
-
-        MainPage mainPage = new MainPage();
         ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
                 .click()
                 .addTodo(infoText1);
@@ -57,19 +57,10 @@ public class InputInfoTest {
 
         toDoBlock.addTodo(infoText2);
         assertEquals(toDoBlock.getTodoCountText(), "2 items left", "Колличество заметок некорректное!");
-
-        driver.quit();
     }
 
     @Test(description = "Проверяем, что закрыв заметку, она появится на вкладке с закрытыми туду")
     public void checkCorrectCloseTodo() throws Exception {
-        System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
-        ChromeDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("mainpage"));
-
-        MainPage mainPage = new MainPage();
         ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
                 .click()
                 .addTodo(infoText1)
@@ -83,7 +74,22 @@ public class InputInfoTest {
         assertTrue(toDoBlock.isTabSelected("completed"), "Вклада с закрытыми туду не выбрана!");
         assertEquals(toDoBlock.getTodoTextByNumber(1), infoText2, "Текст закрытой заметки отличается!");
         assertEquals(toDoBlock.getTodoCountText(), "1 item left", "Колличество заметок некорректное!");
+    }
 
+    @Test(description = "Проверяем, что кнопка выделения всех туду работает корректно")
+    public void checkAllTodoSelect() throws InterruptedException {
+        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+                .click()
+                .addTodo(infoText1);
+        TodoRow todoRow = new TodoRow(driver.getLocalStorage().getItem("react-todos"));
+        utils.utils.createTodoCopies(driver,todoRow, 5);
+        toDoBlock.selectAllTodo()
+                .clickOnCompletedTodoTab();
+        assertEquals(toDoBlock.getTodoCount(), 6, "Колличество заметок отличается!");
+    }
+
+    @AfterMethod(description = "test")
+    public void tearDown() {
         driver.quit();
     }
 }
