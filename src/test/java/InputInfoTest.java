@@ -7,11 +7,11 @@ import utils.Blocks.ToDoBlock;
 import utils.MainPage;
 import utils.TodoRow;
 import utils.utils;
+import utils.BasePage;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 public class InputInfoTest {
 
@@ -28,12 +28,12 @@ public class InputInfoTest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.get(ConfProperties.getProperty("mainpage"));
 
-        mainPage = new MainPage();
+        mainPage = new MainPage(driver);
     }
 
     @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
     public void checkSuccessAddingInfo() throws Exception {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1);
 
@@ -51,7 +51,7 @@ public class InputInfoTest {
 
     @Test(description = "Проверяем, что добавив две заметки, счетчик заметок покажет текущее колличество")
     public void checkTodoCounter() {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1);
         assertEquals(toDoBlock.getTodoCountText(), "1 item left", "Колличество заметок некорректное!");
@@ -62,7 +62,7 @@ public class InputInfoTest {
 
     @Test(description = "Проверяем, что закрыв заметку, она появится на вкладке с закрытыми туду")
     public void checkCorrectCloseTodo() throws Exception {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1)
                 .addTodo(infoText2)
@@ -79,7 +79,7 @@ public class InputInfoTest {
 
     @Test(description = "Проверяем, что кнопка выделения всех туду работает корректно")
     public void checkAllTodoSelect() throws InterruptedException {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1);
         TodoRow todoRow = new TodoRow(driver.getLocalStorage().getItem("react-todos"));
@@ -91,7 +91,7 @@ public class InputInfoTest {
 
     @Test(description = "Проверяем, что туду из пробелов не создастся")
     public void checkIfTodoOnlyWithSpacesNotBeCreated() {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo("      ");
         assertEquals(toDoBlock.getTodoCount(), 0, "Заметка создалась, а не должна!");
@@ -99,7 +99,7 @@ public class InputInfoTest {
 
     @Test(description = "Проверяем, что удаление и изменение заметки работает корректно")
     public void checkDeleteAndChangeOnTodoActions() throws InterruptedException {
-        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+        ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1)
                 .addTodo(infoText2);
@@ -112,6 +112,23 @@ public class InputInfoTest {
             a = toDoBlock.getTodoTextByNumber(1);
         }
         assertTrue(a.contains("kek"));
+    }
+
+    @Test(description = "Проверяем, что при добавлении неожидаемых символов в урл сайт вернет 404")
+    public void testNotFoundUrl() {
+        String currentUrl = driver.getCurrentUrl();
+        String brokenUrl = currentUrl.substring(0, currentUrl.length() - 3) + "1";
+        driver.get(brokenUrl);
+        BasePage basePage = new BasePage(driver);
+        assertEquals(basePage.getH1Text(), "404", "Заголовок h1 отличается!");
+    }
+
+    @Test(description = "Проверяем, что при смене демо заметок меняется урл")
+    public void checkWhenChangedDemoTodoUrlWillChange() {
+        String oldUrl = driver.getCurrentUrl();
+        mainPage.clickOnTSDemoLink();
+        String newUrl = driver.getCurrentUrl();
+        assertFalse(oldUrl.contains(newUrl), "Урл не изменился!");
     }
 
     @AfterMethod(description = "test")
