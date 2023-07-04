@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import utils.Blocks.ToDoBlock;
 import utils.MainPage;
 import utils.TodoRow;
+import utils.utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -82,10 +83,18 @@ public class InputInfoTest {
                 .click()
                 .addTodo(infoText1);
         TodoRow todoRow = new TodoRow(driver.getLocalStorage().getItem("react-todos"));
-        utils.utils.createTodoCopies(driver,todoRow, 5);
+        utils.createTodoCopies(driver,todoRow, 5);
         toDoBlock.selectAllTodo()
                 .clickOnCompletedTodoTab();
         assertEquals(toDoBlock.getTodoCount(), 6, "Колличество заметок отличается!");
+    }
+
+    @Test(description = "Проверяем, что туду из пробелов не создастся")
+    public void checkIfTodoOnlyWithSpacesNotBeCreated() {
+        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+                .click()
+                .addTodo("      ");
+        assertEquals(toDoBlock.getTodoCount(), 0, "Заметка создалась, а не должна!");
     }
 
     @AfterMethod(description = "test")
