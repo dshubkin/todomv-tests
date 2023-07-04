@@ -97,6 +97,23 @@ public class InputInfoTest {
         assertEquals(toDoBlock.getTodoCount(), 0, "Заметка создалась, а не должна!");
     }
 
+    @Test(description = "Проверяем, что удаление и изменение заметки работает корректно")
+    public void checkDeleteAndChangeOnTodoActions() throws InterruptedException {
+        ToDoBlock toDoBlock = mainPage.getToDoBlock(driver)
+                .click()
+                .addTodo(infoText1)
+                .addTodo(infoText2);
+
+        toDoBlock.deleteTodo(1);
+        toDoBlock.changeTodoText(1, infoText2, "kek");
+        assertEquals(toDoBlock.getTodoCount(), 1, "Колличество заметок отличается!");
+        var a = toDoBlock.getTodoTextByNumber(1);
+        while (a.length() == 0) {
+            a = toDoBlock.getTodoTextByNumber(1);
+        }
+        assertTrue(a.contains("kek"));
+    }
+
     @AfterMethod(description = "test")
     public void tearDown() {
         driver.quit();
