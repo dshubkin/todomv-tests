@@ -1,35 +1,14 @@
-import org.example.ConfProperties;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.Blocks.ToDoBlock;
-import utils.MainPage;
 import utils.TodoRow;
 import utils.utils;
 import utils.BasePage;
 
-import java.util.concurrent.TimeUnit;
-
 import static org.testng.Assert.*;
 
-public class InputInfoTest {
-
-    private MainPage mainPage;
-    private ChromeDriver driver;
+public class InputInfoTest extends BaseTest {
     private static final String infoText1 = "kek";
     private static final String infoText2 = "kek2";
-
-    @BeforeMethod(description = "сетап до теста")
-    public void setUp() {
-        System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        driver.get(ConfProperties.getProperty("mainpage"));
-
-        mainPage = new MainPage(driver);
-    }
 
     @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
     public void checkSuccessAddingInfo() throws Exception {
@@ -129,10 +108,5 @@ public class InputInfoTest {
         mainPage.clickOnTSDemoLink();
         String newUrl = driver.getCurrentUrl();
         assertFalse(oldUrl.contains(newUrl), "Урл не изменился!");
-    }
-
-    @AfterMethod(description = "test")
-    public void tearDown() {
-        driver.quit();
     }
 }
