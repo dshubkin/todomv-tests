@@ -1,4 +1,4 @@
-package utils;
+package Pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;

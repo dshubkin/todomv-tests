@@ -1,8 +1,7 @@
-import org.example.ConfProperties;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import utils.MainPage;
+import Pages.MainPage;
 
 import java.util.concurrent.TimeUnit;
 

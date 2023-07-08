@@ -1,4 +1,4 @@
-package utils.Blocks;
+package Blocks;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

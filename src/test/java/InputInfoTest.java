@@ -1,8 +1,6 @@
 import org.testng.annotations.Test;
-import utils.Blocks.ToDoBlock;
-import utils.TodoRow;
-import utils.utils;
-import utils.BasePage;
+import Blocks.ToDoBlock;
+import Pages.BasePage;
 
 import static org.testng.Assert.*;
 
@@ -61,8 +59,8 @@ public class InputInfoTest extends BaseTest {
         ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo(infoText1);
-        TodoRow todoRow = new TodoRow(driver.getLocalStorage().getItem("react-todos"));
-        utils.createTodoCopies(driver,todoRow, 5);
+        mainPage.createTodoCopies();
+
         toDoBlock.selectAllTodo()
                 .clickOnCompletedTodoTab();
         assertEquals(toDoBlock.getTodoCount(), 6, "Колличество заметок отличается!");
