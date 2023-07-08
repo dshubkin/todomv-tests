@@ -1,12 +1,20 @@
+import Pages.MainPage;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import Blocks.ToDoBlock;
-import Pages.BasePage;
+import utils.utils;
 
 import static org.testng.Assert.*;
 
 public class InputInfoTest extends BaseTest {
+    private MainPage mainPage;
     private static final String infoText1 = "kek";
     private static final String infoText2 = "kek2";
+
+    @BeforeMethod(description = "сетап до теста")
+    public void setUp() {
+        mainPage = utils.createMainPage().openMainPage();
+    }
 
     @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
     public void checkSuccessAddingInfo() throws Exception {
@@ -89,18 +97,17 @@ public class InputInfoTest extends BaseTest {
 
     @Test(description = "Проверяем, что при добавлении неожидаемых символов в урл сайт вернет 404")
     public void testNotFoundUrl() {
-        String currentUrl = driver.getCurrentUrl();
+        String currentUrl = mainPage.getDriver().getCurrentUrl();
         String brokenUrl = currentUrl.substring(0, currentUrl.length() - 3) + "1";
-        driver.get(brokenUrl);
-        BasePage basePage = new BasePage(driver);
-        assertEquals(basePage.getH1Text(), "404", "Заголовок h1 отличается!");
+        mainPage.getDriver().get(brokenUrl);
+        assertEquals(mainPage.getH1Text(), "404", "Заголовок h1 отличается!");
     }
 
     @Test(description = "Проверяем, что при смене демо заметок меняется урл")
     public void checkWhenChangedDemoTodoUrlWillChange() {
-        String oldUrl = driver.getCurrentUrl();
+        String oldUrl = mainPage.getDriver().getCurrentUrl();
         mainPage.clickOnTSDemoLink();
-        String newUrl = driver.getCurrentUrl();
+        String newUrl = mainPage.getDriver().getCurrentUrl();
         assertFalse(oldUrl.contains(newUrl), "Урл не изменился!");
     }
 }

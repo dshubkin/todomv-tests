@@ -1,5 +1,6 @@
 package utils;
 
+import Pages.MainPage;
 import com.google.gson.JsonObject;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -18,5 +19,9 @@ public class utils {
         driver.getLocalStorage().removeItem("react-todos");
         driver.getLocalStorage().setItem("react-todos", jsonObjectList.toString());
         driver.navigate().refresh();
+    }
+
+    public static MainPage createMainPage() {
+        return new MainPage();
     }
 }

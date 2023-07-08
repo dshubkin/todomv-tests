@@ -1,17 +1,16 @@
 package Pages;
 
-import org.openqa.selenium.chrome.ChromeDriver;
 import Blocks.BaseBlock;
 import Blocks.ToDoBlock;
 import utils.TodoRow;
 import utils.utils;
+import utils.ConfProperties;
 
 public class MainPage extends BasePage {
-    private ChromeDriver driver;
 
-    public MainPage(ChromeDriver driver) {
-        super(driver);
-        this.driver = driver;
+    public MainPage openMainPage() {
+        driver.get(ConfProperties.getProperty("mainpage"));
+        return this;
     }
 
     public ToDoBlock getToDoBlock() {
