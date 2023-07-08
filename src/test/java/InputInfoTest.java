@@ -45,14 +45,14 @@ public class InputInfoTest extends BaseTest {
                 .click()
                 .addTodo(infoText1)
                 .addTodo(infoText2)
-                .closeTodo(2);
+                .completeTodo(1);
 
-        assertEquals(toDoBlock.getTodoTextByNumber(1), infoText1, "Текст оставшейся заметки отличается!");
+        assertEquals(toDoBlock.getTodoTextByNumber(0), infoText1, "Текст оставшейся заметки отличается!");
 
         toDoBlock.clickOnCompletedTodoTab();
 
         assertTrue(toDoBlock.isTabSelected("completed"), "Вклада с закрытыми туду не выбрана!");
-        assertEquals(toDoBlock.getTodoTextByNumber(1), infoText2, "Текст закрытой заметки отличается!");
+        assertEquals(toDoBlock.getTodoTextByNumber(0), infoText2, "Текст закрытой заметки отличается!");
         assertEquals(toDoBlock.getTodoCountText(), "1 item left", "Колличество заметок некорректное!");
     }
 
@@ -83,14 +83,10 @@ public class InputInfoTest extends BaseTest {
                 .addTodo(infoText1)
                 .addTodo(infoText2);
 
-        toDoBlock.deleteTodo(1);
-        toDoBlock.changeTodoText(1, infoText2, "kek");
+        toDoBlock.deleteTodo(0);
+        toDoBlock.changeTodoText(0, infoText2, "kek");
         assertEquals(toDoBlock.getTodoCount(), 1, "Колличество заметок отличается!");
-        var a = toDoBlock.getTodoTextByNumber(1);
-        while (a.length() == 0) {
-            a = toDoBlock.getTodoTextByNumber(1);
-        }
-        assertTrue(a.contains("kek"));
+        assertTrue(toDoBlock.getTodoTextByNumber(0).contains("kek"));
     }
 
     @Test(description = "Проверяем, что при добавлении неожидаемых символов в урл сайт вернет 404")
