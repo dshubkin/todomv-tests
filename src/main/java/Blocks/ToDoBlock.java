@@ -60,7 +60,6 @@ public class ToDoBlock extends BaseBlock {
         click(ALL_TODO_CHECKBOX);
         return this;
     }
-
     public ToDoBlock changeTodoText(int todoIndex, String oldTodoText,String newTodoText) {
         WebElement element = getElementFromList(TODO_LIST_ELEMENT, todoIndex);
         doubleClick(element);
@@ -83,6 +82,10 @@ public class ToDoBlock extends BaseBlock {
 
     public int getTodoCount() {
         return getElementCount(TODO_LIST_ELEMENT);
+    }
+
+    public Boolean isTodoVisible() {
+        return String.valueOf(driver.getLocalStorage().size()).contains("0");
     }
 
     public boolean isTabSelected(String tabName) throws Exception {

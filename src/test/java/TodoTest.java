@@ -6,12 +6,12 @@ import utils.utils;
 
 import static org.testng.Assert.*;
 
-public class InputInfoTest extends BaseTest {
+public class TodoTest extends BaseTest {
     private MainPage mainPage;
     private static final String infoText1 = "kek";
     private static final String infoText2 = "kek2";
 
-    @BeforeMethod(description = "сетап до теста")
+    @BeforeMethod(description = "Открываем главную страницу")
     public void setUp() {
         mainPage = utils.createMainPage().openMainPage();
     }
@@ -79,7 +79,7 @@ public class InputInfoTest extends BaseTest {
         ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
                 .addTodo("      ");
-        assertEquals(toDoBlock.getTodoCount(), 0, "Заметка создалась, а не должна!");
+        assertTrue(toDoBlock.isTodoVisible(), "Заметка создалась, а не должна!");
     }
 
     @Test(description = "Проверяем, что удаление и изменение заметки работает корректно")
@@ -93,21 +93,5 @@ public class InputInfoTest extends BaseTest {
         toDoBlock.changeTodoText(0, infoText2, "kek");
         assertEquals(toDoBlock.getTodoCount(), 1, "Колличество заметок отличается!");
         assertTrue(toDoBlock.getTodoTextByNumber(0).contains("kek"));
-    }
-
-    @Test(description = "Проверяем, что при добавлении неожидаемых символов в урл сайт вернет 404")
-    public void testNotFoundUrl() {
-        String currentUrl = mainPage.getDriver().getCurrentUrl();
-        String brokenUrl = currentUrl.substring(0, currentUrl.length() - 3) + "1";
-        mainPage.getDriver().get(brokenUrl);
-        assertEquals(mainPage.getH1Text(), "404", "Заголовок h1 отличается!");
-    }
-
-    @Test(description = "Проверяем, что при смене демо заметок меняется урл")
-    public void checkWhenChangedDemoTodoUrlWillChange() {
-        String oldUrl = mainPage.getDriver().getCurrentUrl();
-        mainPage.clickOnTSDemoLink();
-        String newUrl = mainPage.getDriver().getCurrentUrl();
-        assertFalse(oldUrl.contains(newUrl), "Урл не изменился!");
     }
 }

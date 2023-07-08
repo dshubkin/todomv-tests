@@ -1,5 +1,6 @@
 package utils;
 
+import Pages.BasePage;
 import Pages.MainPage;
 import com.google.gson.JsonObject;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +22,21 @@ public class utils {
         driver.navigate().refresh();
     }
 
+    public static <T extends BasePage> T createPage(Class<T> clazz) {
+        T screen;
+        try {
+            screen = clazz.getDeclaredConstructor().newInstance();
+        } catch (Exception e) {
+            Throwable cause = e.getCause();
+            if (cause != null) {
+                throw (UnexpectedJsErrorException) cause;
+            }
+            throw new RuntimeException(e);
+        }
+        return screen;
+    }
+
     public static MainPage createMainPage() {
-        return new MainPage();
+        return createPage(MainPage.class);
     }
 }
