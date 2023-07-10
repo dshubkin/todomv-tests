@@ -15,6 +15,7 @@
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
         <aspectj.version>1.9.19</aspectj.version>
         <allure-testng.version>2.23.0</allure-testng.version>
+        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
     </properties>
 
     <dependencies>

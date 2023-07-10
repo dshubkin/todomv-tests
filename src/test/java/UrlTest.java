@@ -1,9 +1,7 @@
 import Pages.FileNotFoundPage;
 import Pages.MainPage;
 import io.qameta.allure.Epic;
-import org.openqa.selenium.Dimension;
 import org.testng.annotations.Test;
-import utils.CompareTwoImages;
 import utils.utils;
 
 import static org.testng.Assert.*;

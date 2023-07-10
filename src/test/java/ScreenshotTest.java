@@ -17,6 +17,12 @@ public class ScreenshotTest {
         CompareTwoImages cti = new CompareTwoImages();
         cti.setParameters(10, 10);
         cti.compare();
-        assertTrue(cti.isIdentic());
+        try {
+            assertTrue(cti.isIdentic());
+        } catch (AssertionError e) {
+            cti.getActualBytes();
+            cti.getDefaultBytes();
+            throw new AssertionError("Скриншоты отличаются!");
+        }
     }
 }

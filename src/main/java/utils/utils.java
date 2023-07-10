@@ -3,8 +3,13 @@ package utils;
 import Pages.BasePage;
 import Pages.MainPage;
 import com.google.gson.JsonObject;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +19,6 @@ public class utils {
 
         jsonObjectList.add(todoRow.getJsonObject());
         for (int i = 0; i < numberOfCopies; i++) {
-            //jsonObjectList.add(new TodoRow(String.valueOf(i), todoRow.getTitle() + i, todoRow.getCompleted()).getJsonObject());
             jsonObjectList.add(new TodoRow(String.valueOf(i), todoRow.getJsonObject().get("title").getAsString() + i, todoRow.getCompleted()).getJsonObject());
         }
         driver.getLocalStorage().removeItem("react-todos");
@@ -38,5 +42,13 @@ public class utils {
 
     public static MainPage createMainPage() {
         return createPage(MainPage.class);
+    }
+
+    public byte[] getFileBytes(File file) throws IOException {
+        return new FileInputStream(file).readAllBytes();
+    }
+
+    public File getScreenshotFile() throws IOException {
+        return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
     }
 }
