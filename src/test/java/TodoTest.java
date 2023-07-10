@@ -1,4 +1,5 @@
 import Pages.MainPage;
+import io.qameta.allure.Epic;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import Blocks.ToDoBlock;
@@ -6,6 +7,7 @@ import utils.utils;
 
 import static org.testng.Assert.*;
 
+@Epic(value = "Тесты на блок заметок")
 public class TodoTest extends BaseTest {
     private MainPage mainPage;
     private static final String infoText1 = "kek";
@@ -74,7 +76,7 @@ public class TodoTest extends BaseTest {
         assertEquals(toDoBlock.getTodoCount(), 6, "Колличество заметок отличается!");
     }
 
-    @Test(description = "Проверяем, что туду из пробелов не создастся")
+    @Test(description = "Проверяем, что при вводе строки только из пробелов, заметка не создается")
     public void checkIfTodoOnlyWithSpacesNotBeCreated() {
         ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()

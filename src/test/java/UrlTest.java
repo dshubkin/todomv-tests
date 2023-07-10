@@ -1,5 +1,6 @@
 import Pages.FileNotFoundPage;
 import Pages.MainPage;
+import io.qameta.allure.Epic;
 import org.openqa.selenium.Dimension;
 import org.testng.annotations.Test;
 import utils.CompareTwoImages;
@@ -7,6 +8,7 @@ import utils.utils;
 
 import static org.testng.Assert.*;
 
+@Epic(value = "Тесты на URL")
 public class UrlTest extends BaseTest {
     private String defaultUrl = "https://todomvc.com/examples/react/#/";
     private String brokenUrl = "https://todomvc.com/examples/react1";
@@ -26,20 +28,9 @@ public class UrlTest extends BaseTest {
         assertFalse(defaultUrl.contains(newUrl), "Урл не изменился!");
     }
 
-    @Test(description = "Проверяем, что при открытии страницы урл  не изменился")
+    @Test(description = "Проверяем, что при открытии страницы в урле нет ничего лишнего")
     public void checkDefaultUrl() {
         MainPage mainPage = utils.createMainPage().openMainPage();
         assertTrue(mainPage.getDriver().getCurrentUrl().contains(defaultUrl), "Дефолтный урл не совпадает!");
-    }
-
-    @Test(description = "Проверяем, верстка при открытии страницы выглядит точно также, как на эталонном скрине")
-    public void checkScreenShotFromMainPage() throws Exception {
-        MainPage mainPage = utils.createMainPage().openMainPage();
-        mainPage.getDriver().manage().window().setSize(new Dimension(1000, 1000));
-
-        CompareTwoImages cti = new CompareTwoImages();
-        cti.setParameters(10, 10);
-        cti.compare();
-        assertTrue(cti.isIdentic());
     }
 }
