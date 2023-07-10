@@ -1,34 +1,45 @@
 package utils;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.qameta.allure.Attachment;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class CompareTwoImages {
+public class CompareTwoImages extends utils {
     File actualFile;
+    byte[] defaultBytes;
+    byte[] actualBytes;
     private static BufferedImage image1, image2, imageResult;
     private static boolean isIdentic;
     private static int compareX, compareY;
     private static double sensitivity = 0.10;
 
     public CompareTwoImages() throws IOException {
-        File defaultFile = new File("default.png");
-        File actualFileObject = ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
-        byte[] actual = new FileInputStream(actualFileObject).readAllBytes();
+        File defaultFileObject = new File("default.png");
+        File actualFileObject = getScreenshotFile();
+        defaultBytes = getFileBytes(defaultFileObject);
+        actualBytes = getFileBytes(actualFileObject);
         try (FileOutputStream fos = new FileOutputStream("actual.png")) {
-            fos.write(actual);
+            fos.write(actualBytes);
         }
         actualFile = new File("actual.png");
 
         image1 = loadPNG(actualFile.getName());
-        image2 = loadPNG(defaultFile.getName());
+        image2 = loadPNG(defaultFileObject.getName());
+    }
+
+    @Attachment(value = "Дефолтный скриншот")
+    public byte[] getDefaultBytes() {
+        return defaultBytes;
+    }
+
+    @Attachment(value = "Актуальный скриншот")
+    public byte[] getActualBytes() {
+        return actualBytes;
     }
 
     public void setParameters(int compareX, int compareY) {
