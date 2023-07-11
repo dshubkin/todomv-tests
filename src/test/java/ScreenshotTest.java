@@ -1,6 +1,4 @@
-import Pages.MainPage;
 import io.qameta.allure.Epic;
-import org.openqa.selenium.Dimension;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import utils.utils;

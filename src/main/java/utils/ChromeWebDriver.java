@@ -1,7 +1,9 @@
 package utils;
 
-import org.openqa.selenium.Dimension;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +17,7 @@ public class ChromeWebDriver extends ChromeDriver {
         if (Objects.isNull(MY_DRIVER)) {
             System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
             MY_DRIVER = new ChromeWebDriver();
-            MY_DRIVER.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            MY_DRIVER.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
         }
         return MY_DRIVER;
@@ -23,6 +25,13 @@ public class ChromeWebDriver extends ChromeDriver {
 
     public static ChromeWebDriver getCurrentDriver() {
         return MY_DRIVER;
+    }
+
+    public WebElement findFirstElement(By locator) {
+        return MY_DRIVER.findElements(locator)
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     public static void shutdownDriver() {

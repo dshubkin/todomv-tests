@@ -48,7 +48,7 @@ public class utils {
         return new FileInputStream(file).readAllBytes();
     }
 
-    public File getScreenshotFile() throws IOException {
+    public File getScreenshotFile() {
         return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
     }
 }
