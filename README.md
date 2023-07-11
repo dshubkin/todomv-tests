@@ -1,3 +1,12 @@
-Проект с автотестами на сайт https://todomvc.com/examples/react/#/
+Проект с автотестами на сайт c ведением заметок - https://todomvc.com/examples/react/#/
 
-Для запуска нужна Java 17.0.3, maven 3.9.2, IntelliJ IDEA
+Для запуска необходимо:
+- Java 17.0.3
+- maven 3.9.2
+- Google Chrome
+
+Для запуска, нужно перейти в дирректорию с проектом, и выполнить:
+- **mvn clean test**
+
+Для просмотра отчета, после запуска тестов, выполнить:
+-  **mvn allure:serve**
