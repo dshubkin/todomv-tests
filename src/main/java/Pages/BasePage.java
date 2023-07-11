@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.Dimension;
 import utils.ChromeWebDriver;
 import org.openqa.selenium.By;
 
@@ -14,6 +15,14 @@ public class BasePage {
 
     public ChromeWebDriver getDriver() {
         return driver;
+    }
+
+    public void setWindowSize(int width, int height) {
+        driver.manage().window().setSize(new Dimension(width, height));
+    }
+
+    public void setMaxWindowSize() {
+        driver.manage().window().maximize();
     }
 
     public void openUrl(String url) {

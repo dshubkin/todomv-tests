@@ -1,5 +1,6 @@
 package utils;
 
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -14,7 +15,6 @@ public class ChromeWebDriver extends ChromeDriver {
         if (Objects.isNull(MY_DRIVER)) {
             System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
             MY_DRIVER = new ChromeWebDriver();
-            MY_DRIVER.manage().window().maximize();
             MY_DRIVER.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
         }
