@@ -6,7 +6,7 @@ import utils.CompareTwoImages;
 
 import java.io.IOException;
 
-import static org.testng.Assert.assertTrue;
+import static utils.Asserts.*;
 
 @Epic(value = "Тест на скришот главной страницы")
 public class ScreenshotTest extends BaseTest {
@@ -26,7 +26,6 @@ public class ScreenshotTest extends BaseTest {
         try {
             assertTrue(cti.isIdentic());
         } catch (AssertionError e) {
-            cti.getActualBytes();
             cti.getDefaultBytes();
             throw new AssertionError("Скриншоты отличаются!");
         }

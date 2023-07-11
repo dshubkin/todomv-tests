@@ -44,11 +44,16 @@ public class utils {
         return createPage(MainPage.class);
     }
 
-    public byte[] getFileBytes(File file) throws IOException {
-        return new FileInputStream(file).readAllBytes();
+    public static byte[] getFileBytes(File file) {
+        try {
+            return new FileInputStream(file).readAllBytes();
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
-    public File getScreenshotFile() {
+    public static File getScreenshotFile() {
         return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
     }
 }
