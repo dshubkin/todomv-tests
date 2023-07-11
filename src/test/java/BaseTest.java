@@ -20,7 +20,7 @@ public class BaseTest {
         browserWVersion = ChromeWebDriver.getInstance().getCapabilities().getCapability("browserVersion").toString();
     }
 
-    @AfterMethod(description = "test", alwaysRun = true)
+    @AfterMethod(description = "Закрываем драйвер", alwaysRun = true)
     public void tearDown() {
         ChromeWebDriver.shutdownDriver();
     }
@@ -32,7 +32,7 @@ public class BaseTest {
         String osVersion = System.getProperty("os.version");
         String all = "browser = " + browserName + " " + browserWVersion + "\n" + "OS = " + osName + " " + osVersion + "\n" + "javaVersion = " + javaVersion;
 
-       try (FileOutputStream fos = new FileOutputStream("./src/test/resources/environment.properties")) {
+       try (FileOutputStream fos = new FileOutputStream("./target/allure-results/environment.properties")) {
             fos.write(all.getBytes());
         }
     }

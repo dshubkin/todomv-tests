@@ -7,10 +7,16 @@ import utils.utils;
 import utils.ConfProperties;
 
 public class MainPage extends BasePage {
+    public MainPage openMainPage(Boolean withMaxSize) {
+        driver.get(ConfProperties.getProperty("defaultUrl"));
+        if (withMaxSize) {
+            setMaxWindowSize();
+        } else setWindowSize(1000, 1000);
+        return this;
+    }
 
     public MainPage openMainPage() {
-        driver.get(ConfProperties.getProperty("mainpage"));
-        return this;
+        return openMainPage(true);
     }
 
     public ToDoBlock getToDoBlock() {
