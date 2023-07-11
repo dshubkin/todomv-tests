@@ -9,14 +9,8 @@ import static org.testng.Assert.*;
 
 @Epic(value = "Тесты на блок заметок")
 public class TodoTest extends BaseTest {
-    private MainPage mainPage;
     private static final String infoText1 = "kek";
     private static final String infoText2 = "kek2";
-
-    @BeforeMethod(description = "Открываем главную страницу")
-    public void setUp() {
-        mainPage = utils.createMainPage().openMainPage();
-    }
 
     @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")
     public void checkSuccessAddingInfo() throws Exception {
