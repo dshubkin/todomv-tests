@@ -9,7 +9,7 @@ import utils.ConfProperties;
 public class MainPage extends BasePage {
 
     public MainPage openMainPage() {
-        driver.get(ConfProperties.getProperty("mainpage"));
+        driver.get(ConfProperties.getProperty("defaultUrl"));
         return this;
     }
 

@@ -20,7 +20,7 @@ public class BaseTest {
         browserWVersion = ChromeWebDriver.getInstance().getCapabilities().getCapability("browserVersion").toString();
     }
 
-    @AfterMethod(description = "test", alwaysRun = true)
+    @AfterMethod(description = "Закрываем драйвер", alwaysRun = true)
     public void tearDown() {
         ChromeWebDriver.shutdownDriver();
     }

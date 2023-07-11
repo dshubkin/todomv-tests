@@ -1,20 +1,16 @@
 import Pages.FileNotFoundPage;
-import Pages.MainPage;
 import io.qameta.allure.Epic;
 import org.testng.annotations.Test;
 import utils.utils;
+import utils.ConfProperties;
 
 import static org.testng.Assert.*;
 
 @Epic(value = "Тесты на URL")
 public class UrlTest extends BaseTest {
-    private String defaultUrl = "https://todomvc.com/examples/react/#/";
-    private String brokenUrl = "https://todomvc.com/examples/react1";
-
     @Test(description = "Проверяем, что при добавлении неожидаемых символов в урл сайт вернет 404")
     public void testNotFoundUrl() {
-        FileNotFoundPage page = utils.createPage(FileNotFoundPage.class);
-        page.openUrl(brokenUrl);
+        FileNotFoundPage page = utils.createPage(FileNotFoundPage.class).openPage();
         assertEquals(page.getH1Text(), "404", "Заголовок h1 отличается!");
     }
 
@@ -22,11 +18,11 @@ public class UrlTest extends BaseTest {
     public void checkWhenChangedDemoTodoUrlWillChange() {
         mainPage.clickOnTSDemoLink();
         String newUrl = mainPage.getDriver().getCurrentUrl();
-        assertFalse(defaultUrl.contains(newUrl), "Урл не изменился!");
+        assertFalse(ConfProperties.getProperty("defaultUrl").contains(newUrl), "Урл не изменился!");
     }
 
     @Test(description = "Проверяем, что при открытии страницы в урле нет ничего лишнего")
     public void checkDefaultUrl() {
-        assertTrue(mainPage.getDriver().getCurrentUrl().contains(defaultUrl), "Дефолтный урл не совпадает!");
+        assertTrue(mainPage.getDriver().getCurrentUrl().contains(ConfProperties.getProperty("defaultUrl")), "Дефолтный урл не совпадает!");
     }
 }
