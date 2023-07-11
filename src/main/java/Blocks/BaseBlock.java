@@ -1,12 +1,9 @@
 package Blocks;
 
-import io.qameta.allure.Allure;
-import io.qameta.allure.testng.AllureTestNg;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.logging.LogType;
 import utils.ChromeWebDriver;
 import utils.Waiter;
 
@@ -26,7 +23,6 @@ public class BaseBlock {
     }
 
     public void click(By selector) {
-        Allure.step(String.format("Кликаем на эелемент '%s'", selector.toString()));
         driver.findElement(selector).click();
         Waiter.waitForPageLoaded();
     }
