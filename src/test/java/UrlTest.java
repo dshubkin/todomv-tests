@@ -20,7 +20,6 @@ public class UrlTest extends BaseTest {
 
     @Test(description = "Проверяем, что при смене демо заметок меняется урл")
     public void checkWhenChangedDemoTodoUrlWillChange() {
-        MainPage mainPage = utils.createMainPage().openMainPage();
         mainPage.clickOnTSDemoLink();
         String newUrl = mainPage.getDriver().getCurrentUrl();
         assertFalse(defaultUrl.contains(newUrl), "Урл не изменился!");
@@ -28,7 +27,6 @@ public class UrlTest extends BaseTest {
 
     @Test(description = "Проверяем, что при открытии страницы в урле нет ничего лишнего")
     public void checkDefaultUrl() {
-        MainPage mainPage = utils.createMainPage().openMainPage();
         assertTrue(mainPage.getDriver().getCurrentUrl().contains(defaultUrl), "Дефолтный урл не совпадает!");
     }
 }
