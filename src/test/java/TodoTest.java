@@ -1,9 +1,6 @@
-import Pages.MainPage;
 import io.qameta.allure.Epic;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import Blocks.ToDoBlock;
-import utils.utils;
 
 import static org.testng.Assert.*;
 
@@ -72,10 +69,11 @@ public class TodoTest extends BaseTest {
 
     @Test(description = "Проверяем, что при вводе строки только из пробелов, заметка не создается")
     public void checkIfTodoOnlyWithSpacesNotBeCreated() {
+        String text = "      ";
         ToDoBlock toDoBlock = mainPage.getToDoBlock()
                 .click()
-                .addTodo("      ");
-        assertTrue(toDoBlock.isTodoVisible(), "Заметка создалась, а не должна!");
+                .addTodo(text);
+        assertFalse(toDoBlock.isTodoVisible(text), "Заметка создалась, а не должна!");
     }
 
     @Test(description = "Проверяем, что удаление и изменение заметки работает корректно")

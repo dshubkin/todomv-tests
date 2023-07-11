@@ -2,7 +2,8 @@ package Blocks;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import utils.ChromeWebDriver;
+import utils.Waiter;
 
 public class ToDoBlock extends BaseBlock {
     private static final By INPUT = new By.ByTagName("input");
@@ -12,10 +13,11 @@ public class ToDoBlock extends BaseBlock {
     private static final By COMPLETED_TAB = new By.ByXPath("//a[contains(@href, '#/completed')]");
     private static final By TODO_LIST_CHECKBOX = new By.ByXPath("//ul[contains(@class, \"todo-list\")]/li/div/input");
     private static final By TODO_LIST_ELEMENT = new By.ByXPath("//ul[contains(@class, \"todo-list\")]/li");
+    private static final String TODO_LIST_ELEMENT_WITH_TEXT = "//ul[contains(@class, 'todo-list')]//input[contains(@value, '%s')]/..";
     private static final By ALL_TODO_CHECKBOX = new By.ByXPath("//label[contains(@for, \"toggle-all\")]");
     private static final By DELETE_BUTTON = new By.ByXPath("//button[contains(@class, \"destroy\")]");
 
-    public ToDoBlock(ChromeDriver driver) {
+    public ToDoBlock(ChromeWebDriver driver) {
         super(driver);
         this.driver = driver;
     }
@@ -47,6 +49,7 @@ public class ToDoBlock extends BaseBlock {
 
     public ToDoBlock completeTodo(int index) {
         getElementFromList(TODO_LIST_CHECKBOX, index).click();
+        Waiter.waitForPageLoaded();
         return this;
     }
 
@@ -84,8 +87,8 @@ public class ToDoBlock extends BaseBlock {
         return getElementCount(TODO_LIST_ELEMENT);
     }
 
-    public Boolean isTodoVisible() {
-        return String.valueOf(driver.getLocalStorage().size()).contains("0");
+    public Boolean isTodoVisible(String text) {
+        return isElementCreated(new By.ByXPath(String.format(TODO_LIST_ELEMENT_WITH_TEXT, text)));
     }
 
     public boolean isTabSelected(String tabName) throws Exception {
