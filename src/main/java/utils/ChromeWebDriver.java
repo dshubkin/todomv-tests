@@ -15,7 +15,7 @@ public class ChromeWebDriver extends ChromeDriver {
         if (Objects.isNull(MY_DRIVER)) {
             System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
             MY_DRIVER = new ChromeWebDriver();
-            MY_DRIVER.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            MY_DRIVER.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
         }
         return MY_DRIVER;
