@@ -2,7 +2,7 @@ import io.qameta.allure.Epic;
 import org.testng.annotations.Test;
 import Blocks.ToDoBlock;
 
-import static org.testng.Assert.*;
+import static utils.Asserts.*;
 
 @Epic(value = "Тесты на блок заметок")
 public class TodoTest extends BaseTest {
@@ -15,7 +15,7 @@ public class TodoTest extends BaseTest {
                 .click()
                 .addTodo(infoText1);
 
-        assertTrue(toDoBlock.isTabSelected("all"), "Дефолтная вкладка отличается!");
+        assertTrue(toDoBlock.isTabSelected("active"), "Дефолтная вкладка отличается!");
         assertEquals(toDoBlock.getTodoTextByText(infoText1), infoText1, "Введенный текст отличается!");
 
         toDoBlock.clickOnActiveTodoTab();

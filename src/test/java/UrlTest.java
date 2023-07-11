@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 import utils.utils;
 import utils.ConfProperties;
 
-import static org.testng.Assert.*;
+import static utils.Asserts.*;
 
 @Epic(value = "Тесты на URL")
 public class UrlTest extends BaseTest {
