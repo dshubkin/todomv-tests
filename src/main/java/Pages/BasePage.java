@@ -5,9 +5,10 @@ import utils.ChromeWebDriver;
 import org.openqa.selenium.By;
 
 public class BasePage {
-    protected ChromeWebDriver driver;
     private final By H1 = new By.ByTagName("h1");
     private final By DEMO_LINK = new By.ByClassName("demo-link");
+
+    protected ChromeWebDriver driver;
 
     public BasePage() {
         driver = ChromeWebDriver.getInstance();
