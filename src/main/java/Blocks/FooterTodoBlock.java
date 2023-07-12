@@ -17,19 +17,19 @@ public class FooterTodoBlock extends BaseBlock {
         return getText(COUNT);
     }
 
-    public TodoBlock clickOnAllTodoTab() {
+    public ToDoBlock clickOnAllTodoTab() {
         click(ALL_TAB);
-        return new TodoBlock(driver);
+        return new ToDoBlock(driver);
     }
 
-    public TodoBlock clickOnActiveTodoTab() {
+    public ToDoBlock clickOnActiveTodoTab() {
         click(ACTIVE_TAB);
-        return new TodoBlock(driver);
+        return new ToDoBlock(driver);
     }
 
-    public TodoBlock clickOnCompletedTodoTab() {
+    public ToDoBlock clickOnCompletedTodoTab() {
         click(COMPLETED_TAB);
-        return new TodoBlock(driver);
+        return new ToDoBlock(driver);
     }
 
     public boolean isTabSelected(String tabName) throws Exception {

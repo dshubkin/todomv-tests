@@ -16,13 +16,13 @@ public class HeaderTodoBlock extends BaseBlock {
         return this;
     }
 
-    public TodoBlock addTodo(String text) {
+    public ToDoBlock addTodo(String text) {
         sendKeysAndSubmit(INPUT, text);
-        return new TodoBlock(driver);
+        return new ToDoBlock(driver);
     }
 
-    public TodoBlock selectAllTodo() {
+    public ToDoBlock selectAllTodo() {
         click(ALL_TODO_CHECKBOX);
-        return new TodoBlock(driver);
+        return new ToDoBlock(driver);
     }
 }

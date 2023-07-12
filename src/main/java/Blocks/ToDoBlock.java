@@ -2,8 +2,8 @@ package Blocks;
 
 import utils.ChromeWebDriver;
 
-public class TodoBlock extends BaseBlock {
-    public TodoBlock(ChromeWebDriver driver) {
+public class ToDoBlock extends BaseBlock {
+    public ToDoBlock(ChromeWebDriver driver) {
         super(driver);
         this.driver = driver;
     }

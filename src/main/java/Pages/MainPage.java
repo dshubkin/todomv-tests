@@ -1,7 +1,7 @@
 package Pages;
 
 import Blocks.BaseBlock;
-import Blocks.TodoBlock;
+import Blocks.ToDoBlock;
 import utils.TodoRow;
 import utils.utils;
 import utils.ConfProperties;
@@ -19,8 +19,8 @@ public class MainPage extends BasePage {
         return openMainPage(true);
     }
 
-    public TodoBlock getTodoBlock() {
-        return new TodoBlock(driver);
+    public ToDoBlock getToDoBlock() {
+        return new ToDoBlock(driver);
     }
 
     public BaseBlock getBaseBlock() {

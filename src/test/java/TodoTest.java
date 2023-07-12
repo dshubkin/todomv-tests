@@ -1,7 +1,7 @@
 import Blocks.FooterTodoBlock;
 import Blocks.HeaderTodoBlock;
 import Blocks.MainTodoBlock;
-import Blocks.TodoBlock;
+import Blocks.ToDoBlock;
 import Pages.MainPage;
 import io.qameta.allure.Epic;
 import org.testng.annotations.BeforeMethod;
@@ -24,7 +24,7 @@ public class TodoTest extends BaseTest {
     @Override
     public void setUp() {
         mainPage = utils.createMainPage().openMainPage();
-        TodoBlock toDoBlock = mainPage.getTodoBlock();
+        ToDoBlock toDoBlock = mainPage.getToDoBlock();
         headerTodoBlock = toDoBlock.getHeaderTodoBlock();
         mainTodoBlock = toDoBlock.getMainTodoBlock();
         footerTodoBlock = toDoBlock.getFooterTodoBlock();
