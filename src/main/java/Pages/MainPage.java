@@ -2,11 +2,26 @@ package Pages;
 
 import Blocks.BaseBlock;
 import Blocks.TodoBlock.TodoBlock;
+import org.openqa.selenium.By;
 import utils.TodoRow;
 import utils.utils;
 import utils.ConfProperties;
 
 public class MainPage extends BasePage {
+    private static final By DEMO_LINK = new By.ByClassName("demo-link");
+
+    public TodoBlock getToDoBlock() {
+        return new TodoBlock(driver);
+    }
+
+    public BaseBlock getBaseBlock() {
+        return new BaseBlock(driver);
+    }
+
+    public void clickOnTSDemoLink() {
+        driver.findElements(DEMO_LINK).get(2).click();
+    }
+
     public MainPage openMainPage(Boolean withMaxSize) {
         driver.get(ConfProperties.getProperty("defaultUrl"));
         if (withMaxSize) {
@@ -17,14 +32,6 @@ public class MainPage extends BasePage {
 
     public MainPage openMainPage() {
         return openMainPage(true);
-    }
-
-    public TodoBlock getToDoBlock() {
-        return new TodoBlock(driver);
-    }
-
-    public BaseBlock getBaseBlock() {
-        return new BaseBlock(driver);
     }
 
     public void createTodoCopies() {

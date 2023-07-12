@@ -17,6 +17,26 @@ public class TodoListBlock extends BaseBlock {
         super(driver);
     }
 
+    public String getTodoTextByNumber(int index) {
+        return getElementFromList(ELEMENT, index).getText();
+    }
+
+    public String getTodoTextByText(String text) {
+        return getText(new By.ByXPath(String.format("//label[contains(text(), '%s')]", text)));
+    }
+
+    public int getTodoCount() {
+        return getElementCount(ELEMENT);
+    }
+
+    public TodoListBlock changeTodoText(int index, String oldTodoText, String newTodoText) {
+        WebElement element = getElementFromList(ELEMENT, index);
+        doubleClick(element);
+        clearInput(element, oldTodoText.length());
+        sendKeysAndSubmit(EDITING_ELEMENT, newTodoText);
+        return this;
+    }
+
     public TodoListBlock closeTodo(int index) {
         getElementFromList(CHECKBOX, index).click();
         Waiter.waitForPageLoaded();
@@ -27,26 +47,6 @@ public class TodoListBlock extends BaseBlock {
         WebElement targetElement = getElementFromList(ELEMENT, index);
         moveToElementAndClick(targetElement, DELETE_BUTTON, 0);
         return this;
-    }
-
-    public TodoListBlock changeTodoText(int index, String oldTodoText, String newTodoText) {
-        WebElement element = getElementFromList(ELEMENT, index);
-        doubleClick(element);
-        clearInput(element, oldTodoText);
-        sendKeysAndSubmit(EDITING_ELEMENT, newTodoText);
-        return this;
-    }
-
-    public String getTodoTextByText(String text) {
-        return getText(new By.ByXPath(String.format("//label[contains(text(), '%s')]", text)));
-    }
-
-    public String getTodoTextByNumber(int index) {
-        return getElementFromList(ELEMENT, index).getText();
-    }
-
-    public int getTodoCount() {
-        return getElementCount(ELEMENT);
     }
 
     public Boolean isTodoVisible(String text) {

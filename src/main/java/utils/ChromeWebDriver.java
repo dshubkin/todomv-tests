@@ -8,36 +8,35 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ChromeWebDriver extends ChromeDriver {
-
-    private static ChromeWebDriver MY_DRIVER;
+    private static ChromeWebDriver driver;
 
     private ChromeWebDriver() {}
 
     public static ChromeWebDriver getInstance() {
-        if (Objects.isNull(MY_DRIVER)) {
+        if (Objects.isNull(driver)) {
             System.setProperty(ConfProperties.getProperty("driver"), ConfProperties.getProperty("driverPlace"));
-            MY_DRIVER = new ChromeWebDriver();
-            MY_DRIVER.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            driver = new ChromeWebDriver();
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
         }
-        return MY_DRIVER;
+        return driver;
     }
 
     public static ChromeWebDriver getCurrentDriver() {
-        return MY_DRIVER;
+        return driver;
     }
 
     public WebElement findFirstElement(By locator) {
-        return MY_DRIVER.findElements(locator)
+        return driver.findElements(locator)
                 .stream()
                 .findFirst()
                 .orElse(null);
     }
 
     public static void shutdownDriver() {
-        if (MY_DRIVER != null) {
-            MY_DRIVER.quit();
-            MY_DRIVER = null;
+        if (driver != null) {
+            driver.quit();
+            driver = null;
         }
     }
 }

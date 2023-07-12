@@ -9,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +25,23 @@ public class utils {
         driver.navigate().refresh();
     }
 
+    public static byte[] getFileBytes(File file) {
+        try {
+            return new FileInputStream(file).readAllBytes();
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public static File getScreenshotFile() {
+        return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
+    }
+
+    public static MainPage createMainPage() {
+        return createPage(MainPage.class);
+    }
+
     public static <T extends BasePage> T createPage(Class<T> clazz) {
         T screen;
         try {
@@ -38,22 +54,5 @@ public class utils {
             throw new RuntimeException(e);
         }
         return screen;
-    }
-
-    public static MainPage createMainPage() {
-        return createPage(MainPage.class);
-    }
-
-    public static byte[] getFileBytes(File file) {
-        try {
-            return new FileInputStream(file).readAllBytes();
-        } catch (Exception e) {
-            return null;
-        }
-
-    }
-
-    public static File getScreenshotFile() {
-        return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
     }
 }
