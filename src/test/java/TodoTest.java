@@ -2,7 +2,6 @@ import Blocks.TodoBlock.TodoTabBlock;
 import Blocks.TodoBlock.TodoInputBlock;
 import Blocks.TodoBlock.TodoListBlock;
 import Blocks.TodoBlock.TodoBlock;
-import Pages.MainPage;
 import io.qameta.allure.Epic;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,7 +11,6 @@ import static utils.Asserts.*;
 
 @Epic(value = "Тесты на блок заметок")
 public class TodoTest extends BaseTest {
-    private MainPage mainPage;
     private TodoInputBlock todoInputBlock;
     private TodoListBlock todoListBlock;
     private TodoTabBlock todoTabBlock;
@@ -21,13 +19,12 @@ public class TodoTest extends BaseTest {
     private static final String infoText2 = "kek2";
 
     @BeforeMethod(description = "Открываем главную страницу")
-    @Override
     public void setUp() {
         mainPage = utils.createMainPage().openMainPage();
         TodoBlock toDoBlock = mainPage.getToDoBlock();
-        todoInputBlock = toDoBlock.getHeaderTodoBlock();
-        todoListBlock = toDoBlock.getMainTodoBlock();
-        todoTabBlock = toDoBlock.getFooterTodoBlock();
+        todoInputBlock = toDoBlock.getTodoInputBlock();
+        todoListBlock = toDoBlock.getTodoListBlock();
+        todoTabBlock = toDoBlock.getTodoTabBlock();
     }
 
     @Test(description = "Проверяем, что добавив одну заметку, она появится на вкладках all/active, и не попадет на completed")

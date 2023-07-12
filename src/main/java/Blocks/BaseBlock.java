@@ -14,16 +14,24 @@ public class BaseBlock {
         this.driver = driver;
     }
 
-    public WebElement getElementFromList(By selector, int elementIndex) {
-        return driver.findElements(selector).get(elementIndex);
+    public WebElement getElementFromList(By locator, int index) {
+        return driver.findElements(locator).get(index);
     }
 
-    public String getAttributeValue(By selector, String attributeName) {
-        return driver.findElement(selector).getAttribute(attributeName);
+    public String getText(By locator) {
+        return driver.findElement(locator).getText();
     }
 
-    public void click(By selector) {
-        driver.findElement(selector).click();
+    public int getElementCount(By locator) {
+        return driver.findElements(locator).size();
+    }
+
+    public String getAttributeValue(By locator, String attributeName) {
+        return driver.findElement(locator).getAttribute(attributeName);
+    }
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
         Waiter.waitForPageLoaded();
     }
 
@@ -38,42 +46,34 @@ public class BaseBlock {
         Waiter.waitForPageLoaded();
     }
 
+    public void moveToElementAndClick(WebElement element, By locator, int index) {
+        moveToElement(element);
+        click(getElementFromList(locator, index));
+        Waiter.waitForPageLoaded();
+    }
+    
     public void moveToElement(WebElement element) {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).build().perform();
         Waiter.waitForPageLoaded();
     }
 
-    public void moveToElementAndClick(WebElement element, By selector, int index) {
-        moveToElement(element);
-        click(getElementFromList(selector, index));
+    public void sendKeysAndSubmit(By locator, String text) {
+        sendKeys(locator, text);
+        sendKeys(locator, String.valueOf(Keys.RETURN));
         Waiter.waitForPageLoaded();
     }
-
-    public void sendKeys(By selector, String text) {
-        driver.findElement(selector).sendKeys(text);
+    
+    public void sendKeys(By locator, String text) {
+        driver.findElement(locator).sendKeys(text);
     }
 
-    public void sendKeysAndSubmit(By selector, String text) {
-        sendKeys(selector, text);
-        sendKeys(selector, String.valueOf(Keys.RETURN));
-        Waiter.waitForPageLoaded();
-    }
-
-    public void clearInput(WebElement element, String oldText) {
+    public void clearInput(WebElement element, int length) {
         Actions actions = new Actions(driver);
         element.click();
-        for (int i = 0; i < oldText.length(); i++) {
+        for (int i = 0; i < length; i++) {
             actions.sendKeys(Keys.BACK_SPACE).build().perform();
         }
-    }
-
-    public String getText(By selector) {
-        return driver.findElement(selector).getText();
-    }
-
-    public int getElementCount(By selector) {
-        return driver.findElements(selector).size();
     }
 
     public Boolean isElementCreated(By locator) {
@@ -85,7 +85,7 @@ public class BaseBlock {
         return true;
     }
 
-    public Boolean isElementSelected(By selector) {
-        return getAttributeValue(selector, "class").contains("selected");
+    public Boolean isElementSelected(By locator) {
+        return getAttributeValue(locator, "class").contains("selected");
     }
 }

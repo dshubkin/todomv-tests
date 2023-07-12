@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 
 public class BasePage {
     private final By H1 = new By.ByTagName("h1");
-    private final By DEMO_LINK = new By.ByClassName("demo-link");
 
     protected ChromeWebDriver driver;
 
@@ -16,6 +15,10 @@ public class BasePage {
 
     public ChromeWebDriver getDriver() {
         return driver;
+    }
+
+    public String getH1Text() {
+        return driver.findElement(H1).getText();
     }
 
     public void setWindowSize(int width, int height) {
@@ -28,13 +31,5 @@ public class BasePage {
 
     public void openUrl(String url) {
         driver.get(url);
-    }
-
-    public String getH1Text() {
-        return driver.findElement(H1).getText();
-    }
-
-    public void clickOnTSDemoLink() {
-        driver.findElements(DEMO_LINK).get(2).click();
     }
 }

@@ -9,15 +9,15 @@ public class TodoBlock extends BaseBlock {
         this.driver = driver;
     }
 
-    public TodoInputBlock getHeaderTodoBlock() {
+    public TodoInputBlock getTodoInputBlock() {
         return new TodoInputBlock(driver);
     }
 
-    public TodoListBlock getMainTodoBlock() {
+    public TodoListBlock getTodoListBlock() {
         return new TodoListBlock(driver);
     }
 
-    public TodoTabBlock getFooterTodoBlock() {
+    public TodoTabBlock getTodoTabBlock() {
         return new TodoTabBlock(driver);
     }
 }
