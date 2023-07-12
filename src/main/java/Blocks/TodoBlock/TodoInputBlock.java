@@ -1,28 +1,29 @@
-package Blocks;
+package Blocks.TodoBlock;
 
+import Blocks.BaseBlock;
 import org.openqa.selenium.By;
 import utils.ChromeWebDriver;
 
-public class HeaderTodoBlock extends BaseBlock {
+public class TodoInputBlock extends BaseBlock {
     private static final By INPUT = new By.ByTagName("input");
     private static final By ALL_TODO_CHECKBOX = new By.ByXPath("//label[contains(@for, \"toggle-all\")]");
 
-    public HeaderTodoBlock(ChromeWebDriver driver) {
+    public TodoInputBlock(ChromeWebDriver driver) {
         super(driver);
     }
 
-    public HeaderTodoBlock clickToInput() {
+    public TodoInputBlock clickToInput() {
         click(INPUT);
         return this;
     }
 
-    public ToDoBlock addTodo(String text) {
+    public TodoBlock addTodo(String text) {
         sendKeysAndSubmit(INPUT, text);
-        return new ToDoBlock(driver);
+        return new TodoBlock(driver);
     }
 
-    public ToDoBlock selectAllTodo() {
+    public TodoBlock selectAllTodo() {
         click(ALL_TODO_CHECKBOX);
-        return new ToDoBlock(driver);
+        return new TodoBlock(driver);
     }
 }
