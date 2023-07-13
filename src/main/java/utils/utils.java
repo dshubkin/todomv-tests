@@ -13,12 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class utils {
-    public static void createTodoCopies(ChromeDriver driver, TodoRow todoRow, int numberOfCopies) {
+    public static void createTodoCopies(ChromeDriver driver, TodoJson todoJson, int numberOfCopies) {
         List<JsonObject> jsonObjectList = new ArrayList<>();
 
-        jsonObjectList.add(todoRow.getJsonObject());
+        jsonObjectList.add(todoJson.getJsonObject());
         for (int i = 0; i < numberOfCopies; i++) {
-            jsonObjectList.add(new TodoRow(String.valueOf(i), todoRow.getJsonObject().get("title").getAsString() + i, todoRow.getCompleted()).getJsonObject());
+            jsonObjectList.add(new TodoJson(String.valueOf(i), todoJson.getJsonObject().get("title").getAsString() + i, todoJson.getCompleted()).getJsonObject());
         }
         driver.getLocalStorage().removeItem("react-todos");
         driver.getLocalStorage().setItem("react-todos", jsonObjectList.toString());

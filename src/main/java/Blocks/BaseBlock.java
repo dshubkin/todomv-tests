@@ -63,16 +63,24 @@ public class BaseBlock {
         sendKeys(locator, String.valueOf(Keys.RETURN));
         Waiter.waitForPageLoaded();
     }
-    
+
+    public void sendKeysAndSubmit(WebElement element, String text) {
+        sendKeys(element, text);
+        sendKeys(element, String.valueOf(Keys.RETURN));
+        Waiter.waitForPageLoaded();
+    }
+
+    public void sendKeys(WebElement element, String text) {
+        element.sendKeys(text);
+    }
     public void sendKeys(By locator, String text) {
         driver.findElement(locator).sendKeys(text);
     }
 
     public void clearInput(WebElement element, int length) {
         Actions actions = new Actions(driver);
-        element.click();
         for (int i = 0; i < length; i++) {
-            actions.sendKeys(Keys.BACK_SPACE).build().perform();
+            actions.sendKeys(element, Keys.BACK_SPACE).build().perform();
         }
     }
 

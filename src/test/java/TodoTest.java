@@ -31,7 +31,7 @@ public class TodoTest extends BaseTest {
     public void checkSuccessAddingInfo() throws Exception {
         todoInputBlock.clickToInput().addTodo(infoText1);
 
-        assertTrue(todoTabBlock.isTabSelected("active"), "Дефолтная вкладка отличается!");
+        assertTrue(todoTabBlock.isTabSelected("all"), "Дефолтная вкладка отличается!");
         assertEquals(todoListBlock.getTodoTextByText(infoText1), infoText1, "Введенный текст отличается!");
 
         todoTabBlock.clickOnActiveTodoTab();
@@ -54,8 +54,7 @@ public class TodoTest extends BaseTest {
 
     @Test(description = "Проверяем, что закрыв заметку, она появится на вкладке с закрытыми туду")
     public void checkCorrectCloseTodo() throws Exception {
-        todoInputBlock.clickToInput()
-                .addTodo(infoText1);
+        todoInputBlock.clickToInput().addTodo(infoText1);
         todoInputBlock.addTodo(infoText2);
         todoListBlock.closeTodo(1);
 
@@ -69,7 +68,7 @@ public class TodoTest extends BaseTest {
     }
 
     @Test(description = "Проверяем, что кнопка выделения всех туду работает корректно")
-    public void checkAllTodoSelect() throws InterruptedException {
+    public void checkAllTodoSelect() {
         todoInputBlock.clickToInput().addTodo(infoText1);
         mainPage.createTodoCopies();
 
@@ -90,7 +89,7 @@ public class TodoTest extends BaseTest {
         todoInputBlock.clickToInput().addTodo(infoText1);
         todoInputBlock.addTodo(infoText2);
 
-        todoListBlock.deleteTodo(0).changeTodoText(0, infoText2, "kek");
+        todoListBlock.deleteTodo(0).changeTodoText(0, "kek");
         assertEquals(todoListBlock.getTodoCount(), 1, "Колличество заметок отличается!");
         assertTrue(todoListBlock.getTodoTextByNumber(0).contains("kek"));
     }
