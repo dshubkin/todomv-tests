@@ -2,6 +2,7 @@ package utils;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.qameta.allure.Allure;
 
 public class TodoJson {
     private String id;
@@ -37,6 +38,7 @@ public class TodoJson {
     }
 
     public JsonObject getJsonObject() {
+        Allure.step(String.format("Получаем jsonObject строки с заметкой '%s'", getTitle()));
         return json;
     }
 }

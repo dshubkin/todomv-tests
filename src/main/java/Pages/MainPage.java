@@ -2,6 +2,7 @@ package Pages;
 
 import Blocks.BaseBlock;
 import Blocks.TodoBlock.TodoBlock;
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import utils.TodoJson;
 import utils.utils;
@@ -18,10 +19,12 @@ public class MainPage extends BasePage {
         return new BaseBlock(driver);
     }
 
+    @Step(value = "Кликаем на ссылку демо сайта с технологие TypeScript")
     public void clickOnTSDemoLink() {
         driver.findElements(DEMO_LINK).get(2).click();
     }
 
+    @Step(value = "Открываем главную страницу")
     public MainPage openMainPage(Boolean withMaxSize) {
         driver.get(ConfProperties.getProperty("defaultUrl"));
         if (withMaxSize) {
@@ -34,6 +37,7 @@ public class MainPage extends BasePage {
         return openMainPage(true);
     }
 
+    @Step(value = "Создаем 5 копий заметок")
     public void createTodoCopies() {
         TodoJson todoJson = new TodoJson(driver.getLocalStorage().getItem("react-todos"));
         utils.createTodoCopies(driver, todoJson, 5);

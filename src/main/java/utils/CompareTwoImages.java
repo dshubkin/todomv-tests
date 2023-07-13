@@ -1,6 +1,7 @@
 package utils;
 
 import io.qameta.allure.Attachment;
+import io.qameta.allure.Step;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -52,6 +53,7 @@ public class CompareTwoImages extends utils {
         CompareTwoImages.compareY = compareY;
     }
 
+    @Step(value = "Сравниваем дефолтный и актуальный скришоты главной страницы")
     public void compare() {
         imageResult = new BufferedImage(image2.getWidth(null), image2.getHeight(null), BufferedImage.TYPE_INT_RGB);
         Graphics2D g2 = imageResult.createGraphics();
