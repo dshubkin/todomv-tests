@@ -3,7 +3,7 @@ package Pages;
 import Blocks.BaseBlock;
 import Blocks.TodoBlock.TodoBlock;
 import org.openqa.selenium.By;
-import utils.TodoRow;
+import utils.TodoJson;
 import utils.utils;
 import utils.ConfProperties;
 
@@ -35,7 +35,7 @@ public class MainPage extends BasePage {
     }
 
     public void createTodoCopies() {
-        TodoRow todoRow = new TodoRow(driver.getLocalStorage().getItem("react-todos"));
-        utils.createTodoCopies(driver,todoRow, 5);
+        TodoJson todoJson = new TodoJson(driver.getLocalStorage().getItem("react-todos"));
+        utils.createTodoCopies(driver, todoJson, 5);
     }
 }
