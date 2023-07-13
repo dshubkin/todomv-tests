@@ -1,6 +1,7 @@
 package Blocks.TodoBlock;
 
 import Blocks.BaseBlock;
+import io.qameta.allure.Allure;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.ChromeWebDriver;
@@ -16,10 +17,12 @@ public class TodoListBlock extends BaseBlock {
     }
 
     public String getTodoTextByNumber(int index) {
+        Allure.step(String.format("Грепаем текст из заметки с индексом='%d'", index));
         return getTodoRows().get(index).getText();
     }
 
     public String getTodoTextByText(String text) {
+        Allure.step(String.format("Грепаем текст из заметки с текстом='%s'", text));
         return driver.findElements(ELEMENT)
                 .stream()
                 .filter(element -> element.getText().contains(text))
@@ -30,22 +33,27 @@ public class TodoListBlock extends BaseBlock {
     }
 
     public int getTodoCount() {
+        Allure.step("Считаем колличество заметок на странице");
         return getTodoRows().size();
     }
 
     public TodoListBlock changeTodoText(int index, String newTodoText) {
+        Allure.step(String.format("Меняем текст в заметке с индексом='%d'", index));
         return getTodoRows().get(index).changeText(newTodoText);
     }
 
     public TodoListBlock closeTodo(int index) {
+        Allure.step(String.format("Закрываем заметку с индексом='%d'", index));
         return getTodoRows().get(index).close();
     }
 
     public TodoListBlock deleteTodo(int index) {
+        Allure.step(String.format("Удаляем заметку с индексом='%d'", index));
         return getTodoRows().get(index).delete();
     }
 
     public Boolean isTodoVisible(String text) {
+        Allure.step(String.format("Проверяем, видна ли заметка с текстом='%s'", text));
         return isElementCreated(new By.ByXPath(String.format(ELEMENT_WITH_TEXT, text)));
     }
 

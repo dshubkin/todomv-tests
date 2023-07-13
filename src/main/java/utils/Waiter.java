@@ -1,5 +1,6 @@
 package utils;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -23,6 +24,7 @@ public class Waiter {
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 
+    @Step(value = "Ожидаем обновления DOM'a")
     public static void waitForPageLoaded() {
         ChromeDriver driver = ChromeWebDriver.getInstance();
         ExpectedCondition<Boolean> expectation = x -> ((JavascriptExecutor) x).executeScript(

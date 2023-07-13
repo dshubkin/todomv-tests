@@ -3,6 +3,7 @@ package utils;
 import Pages.BasePage;
 import Pages.MainPage;
 import com.google.gson.JsonObject;
+import io.qameta.allure.Step;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -34,6 +35,7 @@ public class utils {
 
     }
 
+    @Step(value = "Делаем скриншот окна браузера")
     public static File getScreenshotFile() {
         return ((TakesScreenshot) ChromeWebDriver.getInstance()).getScreenshotAs(OutputType.FILE);
     }

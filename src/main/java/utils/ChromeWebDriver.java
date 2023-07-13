@@ -1,14 +1,13 @@
 package utils;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class ChromeWebDriver extends ChromeDriver implements SearchContext {
+public class ChromeWebDriver extends ChromeDriver {
     private static ChromeWebDriver driver;
 
     private ChromeWebDriver() {}
